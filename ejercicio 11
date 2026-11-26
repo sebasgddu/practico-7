@@ -1,0 +1,121 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+void imprimirUnidades(int n) {
+    switch (n) {
+        case 1: cout << "uno"; break;
+        case 2: cout << "dos"; break;
+        case 3: cout << "tres"; break;
+        case 4: cout << "cuatro"; break;
+        case 5: cout << "cinco"; break;
+        case 6: cout << "seis"; break;
+        case 7: cout << "siete"; break;
+        case 8: cout << "ocho"; break;
+        case 9: cout << "nueve"; break;
+    }
+}
+
+void imprimirDecenas(int n) {
+    if (n == 0) return;
+    if (n < 10) {
+        imprimirUnidades(n);
+    } else if (n == 10) {
+        cout << "diez";
+    } else if (n == 11) {
+        cout << "once";
+    } else if (n == 12) {
+        cout << "doce";
+    } else if (n == 13) {
+        cout << "trece";
+    } else if (n == 14) {
+        cout << "catorce";
+    } else if (n == 15) {
+        cout << "quince";
+    } else if (n < 20) {
+        cout << "dieci";
+        imprimirUnidades(n - 10);
+    } else if (n == 20) {
+        cout << "veinte";
+    } else if (n < 30) {
+        cout << "veinti";
+        imprimirUnidades(n - 20);
+    } else {
+        int d = n / 10;
+        int u = n % 10;
+        switch (d) {
+            case 3: cout << "treinta"; break;
+            case 4: cout << "cuarenta"; break;
+            case 5: cout << "cincuenta"; break;
+            case 6: cout << "sesenta"; break;
+            case 7: cout << "setenta"; break;
+            case 8: cout << "ochenta"; break;
+            case 9: cout << "noventa"; break;
+        }
+        if (u > 0) {
+            cout << " y ";
+            imprimirUnidades(u);
+        }
+    }
+}
+
+void imprimirCentenas(int n) {
+    if (n == 0) return;
+    if (n == 100) {
+        cout << "cien";
+        return;
+    }
+    int c = n / 100;
+    int resto = n % 100;
+    switch (c) {
+        case 1: cout << "ciento"; break;
+        case 2: cout << "doscientos"; break;
+        case 3: cout << "trescientos"; break;
+        case 4: cout << "cuatrocientos"; break;
+        case 5: cout << "quinientos"; break;
+        case 6: cout << "seiscientos"; break;
+        case 7: cout << "setecientos"; break;
+        case 8: cout << "ochocientos"; break;
+        case 9: cout << "novecientos"; break;
+    }
+    if (resto > 0) {
+        cout << " ";
+        imprimirDecenas(resto);
+    }
+}
+
+void montoLiteral(double R) {
+    long long totalCentavos = llround(R * 100.0);
+    int entero = (int)(totalCentavos / 100);
+    int centavos = (int)(totalCentavos % 100);
+
+    if (entero == 0) {
+        cout << "cero";
+    } else {
+        int miles = entero / 1000;
+        int resto = entero % 1000;
+
+        if (miles > 0) {
+            if (miles == 1) {
+                cout << "un mil";
+            } else {
+                imprimirUnidades(miles);
+                cout << " mil";
+            }
+            if (resto > 0) cout << " ";
+        }
+        imprimirCentenas(resto);
+    }
+
+    cout << " ";
+    if (centavos < 10) cout << "0";
+    cout << centavos << "/100 bolivianos" << endl;
+}
+
+int main() {
+    double R;
+    cout << "Ingrese monto R (hasta 4 cifras y 2 decimales): ";
+    cin >> R;
+    montoLiteral(R);
+    return 0;
+}
