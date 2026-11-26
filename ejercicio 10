@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+void aRomano(int N) {
+    if (N <= 0 || N >= 4000) {
+        cout << "Ingrese un numero entre 1 y 3999." << endl;
+        return;
+    }
+
+    int valores[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    const char* simbolos[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+    for (int i = 0; i < 13; i++) {
+        while (N >= valores[i]) {
+            cout << simbolos[i];
+            N -= valores[i];
+        }
+    }
+    cout << endl;
+}
+
+int main() {
+    int N;
+    cout << "Ingrese un numero entero N: ";
+    cin >> N;
+    aRomano(N);
+    return 0;
+}
