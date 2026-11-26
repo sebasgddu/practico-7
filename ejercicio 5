@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+double potenciaEntera(double x, int exp) {
+    double r = 1;
+    for (int i = 1; i <= exp; i++) {
+        r = r * x;
+    }
+    return r;
+}
+
+double factorial(int n) {
+    double f = 1;
+    for (int i = 2; i <= n; i++) {
+        f = f * i;
+    }
+    return f;
+}
+
+double serieAlternada(int x, int N) {
+    double s = 0;
+    int signo = 1;
+    for (int exp = 1; exp <= N; exp += 2) {
+        s = s + signo * (potenciaEntera(x, exp) / factorial(exp));
+        signo = -signo;
+    }
+    return s;
+}
+
+int main() {
+    int x, N;
+    cout << "Ingrese X y N (enteros positivos): ";
+    cin >> x >> N;
+    cout << "Suma S = " << serieAlternada(x, N) << endl;
+    return 0;
+}
