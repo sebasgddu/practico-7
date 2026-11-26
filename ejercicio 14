@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+bool esBisiesto(int anio) {
+    return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+}
+
+int diasEnMes(int mes, int anio) {
+    if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) return 31;
+    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) return 30;
+    return esBisiesto(anio) ? 29 : 28;
+}
+
+// Cuenta dias transcurridos desde una fecha base (01/01/0001)
+long long fechaADias(int dia, int mes, int anio) {
+    long long dias = 0;
+    for (int a = 1; a < anio; a++) {
+        dias += esBisiesto(a) ? 366 : 365;
+    }
+    for (int m = 1; m < mes; m++) {
+        dias += diasEnMes(m, anio);
+    }
+    dias += (dia - 1);
+    return dias;
+}
+
+void diasTranscurridos(int d1, int m1, int a1, int d2, int m2, int a2) {
+    long long t1 = fechaADias(d1, m1, a1);
+    long long t2 = fechaADias(d2, m2, a2);
+    long long dif = (t2 >= t1) ? (t2 - t1) : (t1 - t2);
+    cout << "Dias transcurridos entre ambas fechas: " << dif << endl;
+}
+
+int main() {
+    int d1, m1, a1, d2, m2, a2;
+    cout << "Ingrese primera fecha (dia mes anio): ";
+    cin >> d1 >> m1 >> a1;
+    cout << "Ingrese segunda fecha (dia mes anio): ";
+    cin >> d2 >> m2 >> a2;
+
+    diasTranscurridos(d1, m1, a1, d2, m2, a2);
+    return 0;
+}
