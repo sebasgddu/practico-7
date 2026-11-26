@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int binarioADecimal(long long X) {
+    int decimal = 0;
+    int base = 1;
+
+    while (X > 0) {
+        int digito = X % 10;
+        decimal = decimal + digito * base;
+        base = base * 2;
+        X = X / 10;
+    }
+
+    return decimal;
+}
+
+int main() {
+    long long X;
+    cout << "Ingrese un numero binario (solo 0 y 1): ";
+    cin >> X;
+    cout << "Equivalente decimal: " << binarioADecimal(X) << endl;
+    return 0;
+}
